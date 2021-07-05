@@ -1,0 +1,2760 @@
+<div class="text-center">
+  <h4 *ngIf="company?.code" class="company">
+    {{ company?.code }} - {{ company?.company }}
+    <span *ngIf="price" class="price">({{ price }} ₫)</span>
+    <span *ngIf="!price === 0" class="price">( ***** ₫)</span>
+  </h4>
+</div>
+<div class="text-right input-year" *ngIf="showSelectYear">
+  <span>Năm </span>
+  <input
+    type="number"
+    [(ngModel)]="endYear"
+    #yearInput
+    (ngModelChange)="chooseYear()"
+  />
+</div>
+
+<tabset>
+  <tab heading="Bảng chỉ số" (selectTab)="showSelectYear = true">
+    <div class="card position-relative">
+      <div class="card-body">
+        <div class="row mx-0 mb-3">
+          <h4 class="text-1 col-6 px-0">Bảng 11 bộ chỉ số</h4>
+          <div class="text-1 col-6 px-0 text-2 text-right">
+            Đơn vị: <span class="text-1">nghìn đồng</span>
+          </div>
+        </div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Chỉ số</th>
+              <th>{{ endYear - 5 }}</th>
+              <th>{{ endYear - 4 }}</th>
+              <th>{{ endYear - 3 }}</th>
+              <th>{{ endYear - 2 }}</th>
+              <th>{{ endYear - 1 }}</th>
+              <th>{{ endYear }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                class="title d-flex justify-content-between align-items-center"
+              >
+                <span>Sales</span>
+                <i
+                  class="cil-chart-line mr-2 pointer"
+                  tooltip="biểu đồ thống kê"
+                  (click)="showChartValue('doanh_so', 'doanh số', 'nghìn đồng')"
+                ></i>
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 5]?.doanh_so < 0 }">
+                {{ data[endYear - 5]?.doanh_so | number }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 4]?.doanh_so < 0 }">
+                {{ data[endYear - 4]?.doanh_so | number }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 3]?.doanh_so < 0 }">
+                {{ data[endYear - 3]?.doanh_so | number }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 2]?.doanh_so < 0 }">
+                {{ data[endYear - 2]?.doanh_so | number }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 1]?.doanh_so < 0 }">
+                {{ data[endYear - 1]?.doanh_so | number }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear]?.doanh_so < 0 }">
+                {{ data[endYear]?.doanh_so | number }}
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="title d-flex justify-content-between align-items-center"
+              >
+                <span>EPS</span>
+                <i
+                  class="cil-chart-line mr-2 pointer"
+                  tooltip="biểu đồ thống kê"
+                  (click)="showChartValue('eps', 'EPS', 'nghìn đồng')"
+                ></i>
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 5]?.eps < 0 }">
+                {{ data[endYear - 5]?.eps | number }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 4]?.eps < 0 }">
+                {{ data[endYear - 4]?.eps | number }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 3]?.eps < 0 }">
+                {{ data[endYear - 3]?.eps | number }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 2]?.eps < 0 }">
+                {{ data[endYear - 2]?.eps | number }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 1]?.eps < 0 }">
+                {{ data[endYear - 1]?.eps | number }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear]?.eps < 0 }">
+                {{ data[endYear]?.eps | number }}
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="title d-flex justify-content-between align-items-center"
+              >
+                <span>BVPS</span>
+                <i
+                  class="cil-chart-line mr-2 pointer"
+                  tooltip="biểu đồ thống kê"
+                  (click)="showChartValue('bvps', 'BVPS', 'nghìn đồng')"
+                ></i>
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 5]?.bvps < 0 }">
+                {{ data[endYear - 5]?.bvps | number }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 4]?.bvps < 0 }">
+                {{ data[endYear - 4]?.bvps | number }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 3]?.bvps < 0 }">
+                {{ data[endYear - 3]?.bvps | number }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 2]?.bvps < 0 }">
+                {{ data[endYear - 2]?.bvps | number }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 1]?.bvps < 0 }">
+                {{ data[endYear - 1]?.bvps | number }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear]?.bvps < 0 }">
+                {{ data[endYear]?.bvps | number }}
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="title d-flex justify-content-between align-items-center"
+              >
+                <span>Tăng trưởng Lưu chuyển Tiền thuần từ HDKD</span>
+                <i
+                  class="cil-chart-line mr-2 pointer"
+                  tooltip="biểu đồ thống kê"
+                  (click)="
+                    showChartValue(
+                      'luu_chuyen_tien_te',
+                      'tăng trưởng Lưu chuyển Tiền thuần từ HDKD',
+                      'nghìn đồng'
+                    )
+                  "
+                ></i>
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': data[endYear - 5]?.luu_chuyen_tien_te < 0
+                }"
+              >
+                {{ data[endYear - 5]?.luu_chuyen_tien_te | number }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': data[endYear - 4]?.luu_chuyen_tien_te < 0
+                }"
+              >
+                {{ data[endYear - 4]?.luu_chuyen_tien_te | number }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': data[endYear - 3]?.luu_chuyen_tien_te < 0
+                }"
+              >
+                {{ data[endYear - 3]?.luu_chuyen_tien_te | number }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': data[endYear - 2]?.luu_chuyen_tien_te < 0
+                }"
+              >
+                {{ data[endYear - 2]?.luu_chuyen_tien_te | number }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': data[endYear - 1]?.luu_chuyen_tien_te < 0
+                }"
+              >
+                {{ data[endYear - 1]?.luu_chuyen_tien_te | number }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': data[endYear]?.luu_chuyen_tien_te < 0
+                }"
+              >
+                {{ data[endYear]?.luu_chuyen_tien_te | number }}
+              </td>
+            </tr>
+            <tr>
+              <td class="title">Nợ dài hạn năm gần nhất</td>
+              <td
+                colspan="1"
+                [ngClass]="{ 'text-red': data[endYear]?.no_dai_han < 0 }"
+              >
+                {{ data[endYear]?.no_dai_han | number }}
+              </td>
+              <td></td>
+              <td colspan="2" class="title">Lợi nhuận năm gần nhất</td>
+              <td
+                colspan="2"
+                [ngClass]="{
+                  'text-red': data[endYear]?.loi_nhuan_sau_thue < 0
+                }"
+              >
+                {{ data[endYear]?.loi_nhuan_sau_thue | number }}
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="title d-flex justify-content-between align-items-center"
+              >
+                <span>Effectiveness( Doanh Thu/ Tài Sản )</span>
+                <i
+                  class="cil-chart-line mr-2 pointer"
+                  tooltip="biểu đồ thống kê"
+                  (click)="
+                    showChartValue('effectiveness', 'effectiveness', 'điểm')
+                  "
+                ></i>
+              </td>
+              <td
+                [ngClass]="{ 'text-red': data[endYear - 5]?.effectiveness < 0 }"
+              >
+                {{ data[endYear - 5]?.effectiveness | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{ 'text-red': data[endYear - 4]?.effectiveness < 0 }"
+              >
+                {{ data[endYear - 4]?.effectiveness | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{ 'text-red': data[endYear - 3]?.effectiveness < 0 }"
+              >
+                {{ data[endYear - 3]?.effectiveness | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{ 'text-red': data[endYear - 2]?.effectiveness < 0 }"
+              >
+                {{ data[endYear - 2]?.effectiveness | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{ 'text-red': data[endYear - 1]?.effectiveness < 0 }"
+              >
+                {{ data[endYear - 1]?.effectiveness | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear]?.effectiveness < 0 }">
+                {{ data[endYear]?.effectiveness | number: ".0-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="title d-flex justify-content-between align-items-center"
+              >
+                <span>Efficiency (Lợi nhuận/ Doanh thu)</span>
+                <i
+                  class="cil-chart-line mr-2 pointer"
+                  tooltip="biểu đồ thống kê"
+                  (click)="showChartValue('effciency', 'efficiency', 'điểm')"
+                ></i>
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 5]?.effciency < 0 }">
+                {{ data[endYear - 5]?.effciency | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 4]?.effciency < 0 }">
+                {{ data[endYear - 4]?.effciency | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 3]?.effciency < 0 }">
+                {{ data[endYear - 3]?.effciency | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 2]?.effciency < 0 }">
+                {{ data[endYear - 2]?.effciency | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 1]?.effciency < 0 }">
+                {{ data[endYear - 1]?.effciency | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear]?.effciency < 0 }">
+                {{ data[endYear]?.effciency | number: ".0-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="title d-flex justify-content-between align-items-center"
+              >
+                <span>Productivity (OPC LCDTKD/ Lợi nhuận)</span>
+                <i
+                  class="cil-chart-line mr-2 pointer"
+                  tooltip="biểu đồ thống kê"
+                  (click)="
+                    showChartValue('productitivty', 'productivity', 'điểm')
+                  "
+                ></i>
+              </td>
+              <td
+                [ngClass]="{ 'text-red': data[endYear - 5]?.productitivty < 0 }"
+              >
+                {{ data[endYear - 5]?.productitivty | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{ 'text-red': data[endYear - 4]?.productitivty < 0 }"
+              >
+                {{ data[endYear - 4]?.productitivty | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{ 'text-red': data[endYear - 3]?.productitivty < 0 }"
+              >
+                {{ data[endYear - 3]?.productitivty | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{ 'text-red': data[endYear - 2]?.productitivty < 0 }"
+              >
+                {{ data[endYear - 2]?.productitivty | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{ 'text-red': data[endYear - 1]?.productitivty < 0 }"
+              >
+                {{ data[endYear - 1]?.productitivty | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear]?.productitivty < 0 }">
+                {{ data[endYear]?.productitivty | number: ".0-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="title d-flex justify-content-between align-items-center"
+              >
+                <span>ROA</span>
+                <i
+                  class="cil-chart-line mr-2 pointer"
+                  tooltip="biểu đồ thống kê"
+                  (click)="showChartValue('roa', 'ROA', '%')"
+                ></i>
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 5]?.roa < 0 }">
+                {{ data[endYear - 5]?.roa | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 4]?.roa < 0 }">
+                {{ data[endYear - 4]?.roa | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 3]?.roa < 0 }">
+                {{ data[endYear - 3]?.roa | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 2]?.roa < 0 }">
+                {{ data[endYear - 2]?.roa | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 1]?.roa < 0 }">
+                {{ data[endYear - 1]?.roa | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear]?.roa < 0 }">
+                {{ data[endYear]?.roa | number: ".0-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="title d-flex justify-content-between align-items-center"
+              >
+                <span>ROE</span>
+                <i
+                  class="cil-chart-line mr-2 pointer"
+                  tooltip="biểu đồ thống kê"
+                  (click)="showChartValue('roe', 'ROE', '%')"
+                ></i>
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 5]?.roe < 0 }">
+                {{ data[endYear - 5]?.roe | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 4]?.roe < 0 }">
+                {{ data[endYear - 4]?.roe | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 3]?.roe < 0 }">
+                {{ data[endYear - 3]?.roe | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 2]?.roe < 0 }">
+                {{ data[endYear - 2]?.roe | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 1]?.roe < 0 }">
+                {{ data[endYear - 1]?.roe | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear]?.roe < 0 }">
+                {{ data[endYear]?.roe | number: ".0-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="title d-flex justify-content-between align-items-center"
+              >
+                <span>ROIC</span>
+                <i
+                  class="cil-chart-line mr-2 pointer"
+                  tooltip="biểu đồ thống kê"
+                  (click)="showChartValue('roic', 'ROIC', '%')"
+                ></i>
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 5]?.roic < 0 }">
+                {{ data[endYear - 5]?.roic | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 4]?.roic < 0 }">
+                {{ data[endYear - 4]?.roic | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 3]?.roic < 0 }">
+                {{ data[endYear - 3]?.roic | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 2]?.roic < 0 }">
+                {{ data[endYear - 2]?.roic | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear - 1]?.roic < 0 }">
+                {{ data[endYear - 1]?.roic | number: ".0-2" }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear]?.roic < 0 }">
+                {{ data[endYear]?.roic | number: ".0-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td class="title">Vốn chủ sở hữu</td>
+              <td
+                [ngClass]="{
+                  'text-red': data[endYear - 5]?.von_chu_so_huu < 0
+                }"
+              >
+                {{ data[endYear - 5]?.von_chu_so_huu | number }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': data[endYear - 4]?.von_chu_so_huu < 0
+                }"
+              >
+                {{ data[endYear - 4]?.von_chu_so_huu | number }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': data[endYear - 3]?.von_chu_so_huu < 0
+                }"
+              >
+                {{ data[endYear - 3]?.von_chu_so_huu | number }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': data[endYear - 2]?.von_chu_so_huu < 0
+                }"
+              >
+                {{ data[endYear - 2]?.von_chu_so_huu | number }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': data[endYear - 1]?.von_chu_so_huu < 0
+                }"
+              >
+                {{ data[endYear - 1]?.von_chu_so_huu | number }}
+              </td>
+              <td [ngClass]="{ 'text-red': data[endYear]?.von_chu_so_huu < 0 }">
+                {{ data[endYear]?.von_chu_so_huu | number }}
+              </td>
+            </tr>
+            <tr>
+              <td class="title">Lợi nhuận sau thuế của doanh nghiệp</td>
+              <td
+                [ngClass]="{
+                  'text-red': data[endYear - 5]?.loi_nhuan_sau_thue < 0
+                }"
+              >
+                {{ data[endYear - 5]?.loi_nhuan_sau_thue | number }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': data[endYear - 4]?.loi_nhuan_sau_thue < 0
+                }"
+              >
+                {{ data[endYear - 4]?.loi_nhuan_sau_thue | number }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': data[endYear - 3]?.loi_nhuan_sau_thue < 0
+                }"
+              >
+                {{ data[endYear - 3]?.loi_nhuan_sau_thue | number }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': data[endYear - 2]?.loi_nhuan_sau_thue < 0
+                }"
+              >
+                {{ data[endYear - 2]?.loi_nhuan_sau_thue | number }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': data[endYear - 1]?.loi_nhuan_sau_thue < 0
+                }"
+              >
+                {{ data[endYear - 1]?.loi_nhuan_sau_thue | number }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': data[endYear]?.loi_nhuan_sau_thue < 0
+                }"
+              >
+                {{ data[endYear]?.loi_nhuan_sau_thue | number }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="loading position-absolute w-100 h-100 bg1" *ngIf="loadData4M">
+        <app-loading [color]="'#614871'"></app-loading>
+      </div>
+    </div>
+  </tab>
+  <tab heading="4M" (selectTab)="showSelectYear = true">
+    <div class="card position-relative">
+      <div class="card-body">
+        <h4 class="text-1 mb-3">Bảng đánh giá 4M dựa trên bộ 11 chỉ số</h4>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th rowspan="2">Chỉ số</th>
+              <th *ngFor="let range of listRange">
+                {{ range.range }}
+              </th>
+              <th rowspan="2">Tham chiếu</th>
+              <th rowspan="2">Tỷ trọng</th>
+              <th rowspan="2">Điểm TP</th>
+              <th rowspan="2">Tổng</th>
+            </tr>
+            <tr>
+              <th *ngFor="let range of listRange">
+                <input
+                  [class.text-red]="
+                    listRange[0].percent +
+                      listRange[1].percent +
+                      listRange[2].percent !==
+                    100
+                  "
+                  type="number"
+                  name=""
+                  id=""
+                  [(ngModel)]="range.percent"
+                />
+                %
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="title">Sales</td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.doanh_so[0] < 0,
+                  'text-green': value4M?.doanh_so[0] >= thamChieu[0]
+                }"
+              >
+                {{ value4M?.doanh_so[0] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.doanh_so[1] < 0,
+                  'text-green': value4M?.doanh_so[1] >= thamChieu[0]
+                }"
+              >
+                {{ value4M?.doanh_so[1] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.doanh_so[2] < 0,
+                  'text-green': value4M?.doanh_so[2] >= thamChieu[0]
+                }"
+              >
+                {{ value4M?.doanh_so[2] | number: ".0-2" }}
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="thamChieu[0]"
+                />%
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="tiTrong4M[0]"
+                />%
+              </td>
+              <td
+                [style.color]="
+                  getColor(handle(value4M?.doanh_so, thamChieu[0]) / 100)
+                "
+              >
+                {{ handle(value4M?.doanh_so, thamChieu[0]) | number: ".0-2" }}
+              </td>
+              <td
+                [style.color]="getColor(finalTotal() / 100)"
+                class="total-4m"
+                rowspan="11"
+              >
+                <span
+                  *ngIf="error4M"
+                  tooltip="số điểm không chính xác do thiếu dữ liệu"
+                  class="text-2 font-xl"
+                  >(tạm tính)</span
+                ><br />
+                {{ finalTotal() | number: ".0-2" }}
+                <br />
+                <button
+                  class="btn btn-primary button-compare"
+                  (click)="showChart4M()"
+                >
+                  So sánh
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="title">EPS</td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.eps[0] < 0,
+                  'text-green': value4M?.eps[0] >= thamChieu[1]
+                }"
+              >
+                {{ value4M?.eps[0] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.eps[1] < 0,
+                  'text-green': value4M?.eps[1] >= thamChieu[1]
+                }"
+              >
+                {{ value4M?.eps[1] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.eps[2] < 0,
+                  'text-green': value4M?.eps[2] >= thamChieu[1]
+                }"
+              >
+                {{ value4M?.eps[2] | number: ".0-2" }}
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="thamChieu[1]"
+                />%
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="tiTrong4M[1]"
+                />%
+              </td>
+              <td
+                [style.color]="
+                  getColor(handle(value4M?.eps, thamChieu[1]) / 100)
+                "
+              >
+                {{ handle(value4M?.eps, thamChieu[1]) | number: ".0-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td class="title">BVPS</td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.bvps[0] < 0,
+                  'text-green': value4M?.bvps[0] >= thamChieu[2]
+                }"
+              >
+                {{ value4M?.bvps[0] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.bvps[1] < 0,
+                  'text-green': value4M?.bvps[1] >= thamChieu[2]
+                }"
+              >
+                {{ value4M?.bvps[1] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.bvps[2] < 0,
+                  'text-green': value4M?.bvps[2] >= thamChieu[2]
+                }"
+              >
+                {{ value4M?.bvps[2] | number: ".0-2" }}
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="thamChieu[2]"
+                />%
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="tiTrong4M[2]"
+                />%
+              </td>
+              <td
+                [style.color]="
+                  getColor(handle(value4M?.bvps, thamChieu[2]) / 100)
+                "
+              >
+                {{ handle(value4M?.bvps, thamChieu[2]) | number: ".0-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td class="title">Tăng trưởng Lưu chuyển Tiền thuần từ HDKD</td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.luu_chuyen_tien_te[0] < 0,
+                  'text-green': value4M?.luu_chuyen_tien_te[0] >= thamChieu[3]
+                }"
+              >
+                {{ value4M?.luu_chuyen_tien_te[0] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.luu_chuyen_tien_te[1] < 0,
+                  'text-green': value4M?.luu_chuyen_tien_te[1] >= thamChieu[3]
+                }"
+              >
+                {{ value4M?.luu_chuyen_tien_te[1] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.luu_chuyen_tien_te[2] < 0,
+                  'text-green': value4M?.luu_chuyen_tien_te[2] >= thamChieu[3]
+                }"
+              >
+                {{ value4M?.luu_chuyen_tien_te[2] | number: ".0-2" }}
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="thamChieu[3]"
+                />%
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="tiTrong4M[3]"
+                />%
+              </td>
+              <td
+                [style.color]="
+                  getColor(
+                    handle(value4M?.luu_chuyen_tien_te, thamChieu[3]) / 100
+                  )
+                "
+              >
+                {{
+                  handle(value4M?.luu_chuyen_tien_te, thamChieu[3])
+                    | number: ".0-2"
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td class="title">Nợ dài hạn năm gần nhất</td>
+              <td>{{ value4M?.no_loi_nhuan[0] | number }}</td>
+              <td class="title">Lợi nhuận năm gần nhất</td>
+              <td>{{ value4M?.no_loi_nhuan[1] | number }}</td>
+              <td rowspan="">{{ thamChieu[4] }}</td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="tiTrong4M[4]"
+                />%
+              </td>
+              <td
+                [style.color]="
+                  getColor(
+                    (handleLN(value4M?.no_loi_nhuan, tiTrong4M[4]) * 10) / 100
+                  )
+                "
+              >
+                {{
+                  handleLN(value4M?.no_loi_nhuan, tiTrong4M[4]) * 10
+                    | number: ".0-2"
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td class="title">Effectiveness( Doanh Thu/ Tài Sản )</td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.effectiveness[0] < 0,
+                  'text-green': value4M?.effectiveness[0] >= thamChieu[5]
+                }"
+              >
+                {{ value4M?.effectiveness[0] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.effectiveness[1] < 0,
+                  'text-green': value4M?.effectiveness[1] >= thamChieu[5]
+                }"
+              >
+                {{ value4M?.effectiveness[1] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.effectiveness[2] < 0,
+                  'text-green': value4M?.effectiveness[2] >= thamChieu[5]
+                }"
+              >
+                {{ value4M?.effectiveness[2] | number: ".0-2" }}
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="thamChieu[5]"
+                />%
+              </td>
+              <td rowspan="3">
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="tiTrong4M[5]"
+                />%
+              </td>
+              <td
+                [style.color]="
+                  getColor(handle(value4M?.effectiveness, thamChieu[5]) / 100)
+                "
+              >
+                {{
+                  handle(value4M?.effectiveness, thamChieu[5]) | number: ".0-2"
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td class="title">Efficiency (Lợi nhuận/ Doanh thu)</td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.effciency[0] < 0,
+                  'text-green': value4M?.effciency[0] >= thamChieu[6]
+                }"
+              >
+                {{ value4M?.effciency[0] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.effciency[1] < 0,
+                  'text-green': value4M?.effciency[1] >= thamChieu[6]
+                }"
+              >
+                {{ value4M?.effciency[1] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.effciency[2] < 0,
+                  'text-green': value4M?.effciency[2] >= thamChieu[6]
+                }"
+              >
+                {{ value4M?.effciency[2] | number: ".0-2" }}
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="thamChieu[6]"
+                />%
+              </td>
+              <!-- <td>
+                <input type="number" name="" id="" value="25" max="100" min="0" [(ngModel)]="tiTrong4M[6]">%
+              </td> -->
+              <td
+                [style.color]="
+                  getColor(handle(value4M?.effciency, thamChieu[6]) / 100)
+                "
+              >
+                {{ handle(value4M?.effciency, thamChieu[6]) | number: ".0-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td class="title">Productivity (OPC LCDTKD/ Lợi nhuận)</td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.productitivty[0] < 0,
+                  'text-green': value4M?.productitivty[0] >= thamChieu[7]
+                }"
+              >
+                {{ value4M?.productitivty[0] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.productitivty[1] < 0,
+                  'text-green': value4M?.productitivty[1] >= thamChieu[7]
+                }"
+              >
+                {{ value4M?.productitivty[1] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.productitivty[2] < 0,
+                  'text-green': value4M?.productitivty[2] >= thamChieu[7]
+                }"
+              >
+                {{ value4M?.productitivty[2] | number: ".0-2" }}
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="thamChieu[7]"
+                />%
+              </td>
+              <!-- <td>
+                <input type="number" name="" id="" value="25" max="100" min="0" [(ngModel)]="tiTrong4M[7]">%
+              </td> -->
+              <td
+                [style.color]="
+                  getColor(handle(value4M?.productitivty, thamChieu[7]) / 100)
+                "
+              >
+                {{
+                  handle(value4M?.productitivty, thamChieu[7]) | number: ".0-2"
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td class="title">ROA</td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.roa[0] < 0,
+                  'text-green': value4M?.roa[0] >= thamChieu[8]
+                }"
+              >
+                {{ value4M?.roa[0] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.roa[1] < 0,
+                  'text-green': value4M?.roa[1] >= thamChieu[8]
+                }"
+              >
+                {{ value4M?.roa[1] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.roa[2] < 0,
+                  'text-green': value4M?.roa[2] >= thamChieu[8]
+                }"
+              >
+                {{ value4M?.roa[2] | number: ".0-2" }}
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="thamChieu[8]"
+                />%
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="tiTrong4M[6]"
+                />%
+              </td>
+              <td
+                [style.color]="
+                  getColor(handle(value4M?.roa, thamChieu[8]) / 100)
+                "
+              >
+                {{ handle(value4M?.roa, thamChieu[8]) | number: ".0-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td class="title">ROE</td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.roe[0] < 0,
+                  'text-green': value4M?.roe[0] >= thamChieu[9]
+                }"
+              >
+                {{ value4M?.roe[0] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.roe[1] < 0,
+                  'text-green': value4M?.roe[1] >= thamChieu[9]
+                }"
+              >
+                {{ value4M?.roe[1] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.roe[2] < 0,
+                  'text-green': value4M?.roe[2] >= thamChieu[9]
+                }"
+              >
+                {{ value4M?.roe[2] | number: ".0-2" }}
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="thamChieu[9]"
+                />%
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="tiTrong4M[7]"
+                />%
+              </td>
+              <td
+                [style.color]="
+                  getColor(handle(value4M?.roe, thamChieu[9]) / 100)
+                "
+              >
+                {{ handle(value4M?.roe, thamChieu[9]) | number: ".0-2" }}
+              </td>
+            </tr>
+            <tr>
+              <td class="title">ROIC</td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.roic[0] < 0,
+                  'text-green': value4M?.roic[0] >= thamChieu[10]
+                }"
+              >
+                {{ value4M?.roic[0] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.roic[1] < 0,
+                  'text-green': value4M?.roic[1] >= thamChieu[10]
+                }"
+              >
+                {{ value4M?.roic[1] | number: ".0-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red': value4M?.roic[2] < 0,
+                  'text-green': value4M?.roic[2] >= thamChieu[10]
+                }"
+              >
+                {{ value4M?.roic[2] | number: ".0-2" }}
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="thamChieu[10]"
+                />%
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value="25"
+                  max="100"
+                  min="0"
+                  [(ngModel)]="tiTrong4M[8]"
+                />%
+              </td>
+              <td
+                [style.color]="
+                  getColor(handle(value4M?.roic, thamChieu[10]) / 100)
+                "
+              >
+                {{ handle(value4M?.roic, thamChieu[10]) | number: ".0-2" }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="loading position-absolute w-100 h-100 bg1" *ngIf="loadData4M">
+        <app-loading [color]="'#614871'"></app-loading>
+      </div>
+    </div>
+    <div>
+      <h4 class="pl-3 text-1 mb-3">Lọc cổ phiếu theo khoảng điểm</h4>
+      <div class="d-flex justify-content-between mb-4">
+        <div class="col d-flex align-items-center">
+          <div class="filter input-filter">
+            <span class="pr-3">Khoảng điểm từ: </span>
+            <input type="number" name="" id="" [(ngModel)]="minRange" />
+            <span class="pr-3">đến: </span>
+            <input type="number" name="" id="" [(ngModel)]="maxRange" />
+            <button class="btn btn-primary" (click)="filter4M()">Lọc</button>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="row d-flex align-items-center">
+            <label class="col-4 col-form-label text-2 text-right" for="select1"
+              >Sắp xếp theo:
+            </label>
+            <div class="col">
+              <select
+                id="select1"
+                name="select1"
+                class="form-control"
+                (change)="sort4MFilter($event.target.value)"
+              >
+                <option value="0"></option>
+                <option value="1">Tên: A-Z</option>
+                <option value="2">Tên: Z-A</option>
+                <option value="3">Điểm: Thấp - Cao</option>
+                <option value="4">Điểm: Cao - Thấp</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="filter-result" *ngIf="filterResult">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Mã chứng khoán</th>
+              <th>Tên công ty / doanh nghiệp</th>
+              <th>Sàn niêm yết</th>
+              <th>Điểm số</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let item of filterResult"
+              (click)="onClickStock(item)"
+              class="pointer"
+            >
+              <td [style.width.%]="10" class="text-center">
+                {{ item.data.code }}
+              </td>
+              <td class="text-left px-3">{{ item.data.company }}</td>
+              <td class="text-left px-3">{{ item.data.stock_exchange }}</td>
+              <td
+                [style.width.%]="20"
+                class="text-center scores-col"
+                [style.background]="getColor(item.scores / 100)"
+              >
+                {{ item.scores | number: ".0-2" }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center bg1" *ngIf="!filterResult && loadFilter">
+        <app-loading [color]="'#614871'"></app-loading>
+      </div>
+    </div>
+  </tab>
+  <tab heading="CANSLIM" (selectTab)="showSelectYear = false">
+    <div class="card border-0">
+      <div class="card-body border-0 table-canslim">
+        <h4 class="text-1 mb-3">Bảng đánh giá CANSLIM</h4>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th></th>
+              <th [style.width.px]="265"></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th rowspan="2">Tham chiếu</th>
+              <th rowspan="2">
+                Tỷ trọng <br />
+                <span [class.text-red]="tongTiTrongCanslim() !== 100"
+                  >({{ tongTiTrongCanslim() }} %)</span
+                >
+              </th>
+              <th [style.width.px]="65">C</th>
+              <th [style.width.px]="65">A</th>
+              <th [style.width.px]="110" rowspan="2">Tổng</th>
+            </tr>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th>{{ totalC() | number: ".0-2" }}</th>
+              <th>{{ totalA() | number: ".0-2" }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="4" class="center-table" [style.width.px]="70">
+                Tiêu chí SALE
+              </td>
+              <td class="title">1 Quý gần nhất (C)</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[4]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[4]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[4]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[4]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[0]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[0]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[0]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[0]?.value | number }}
+                </div>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td
+                [ngClass]="{
+                  'text-red':
+                    handleCanslim(
+                      [dataCanslim2?.doanh_so[4]?.value],
+                      [dataCanslim2?.doanh_so[0]?.value]
+                    ) < 0,
+                  'text-green':
+                    handleCanslim(
+                      [dataCanslim2?.doanh_so[4]?.value],
+                      [dataCanslim2?.doanh_so[0]?.value]
+                    ) >= thamChieuCanslim[0]
+                }"
+              >
+                {{
+                  handleCanslim(
+                    [dataCanslim2?.doanh_so[4]?.value],
+                    [dataCanslim2?.doanh_so[0]?.value]
+                  ) | number: ".0-2"
+                }}%
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  [(ngModel)]="thamChieuCanslim[0]"
+                  max="100"
+                  min="0"
+                />%
+              </td>
+              <td>
+                <input
+                  [class.text-red]="tongTiTrongCanslim() !== 100"
+                  type="number"
+                  name=""
+                  id=""
+                  [(ngModel)]="tiTrongCanslim[0]"
+                />%
+              </td>
+              <td
+                [style.color]="
+                  getColor(
+                    caculateCanslim(
+                      handleCanslim(
+                        [dataCanslim2?.doanh_so[4]?.value],
+                        [dataCanslim2?.doanh_so[0]?.value]
+                      ),
+                      thamChieuCanslim[0],
+                      tiTrongCanslim[0]
+                    ) / tiTrongCanslim[0]
+                  )
+                "
+              >
+                {{
+                  caculateCanslim(
+                    handleCanslim(
+                      [dataCanslim2?.doanh_so[4]?.value],
+                      [dataCanslim2?.doanh_so[0]?.value]
+                    ),
+                    thamChieuCanslim[0],
+                    tiTrongCanslim[0]
+                  ) | number: ".0-2"
+                }}
+              </td>
+              <td></td>
+              <td
+                rowspan="8"
+                [style.color]="getColor((totalC() + totalA()) / 100)"
+                class="total-4m"
+              >
+                <span
+                  *ngIf="errorCanslim"
+                  tooltip="số điểm không chính xác do thiếu dữ liệu"
+                  class="text-2 font-xl"
+                  >(tạm tính)</span
+                ><br />
+                {{ totalC() + totalA() | number: ".0-2" }}
+                <br />
+                <button
+                  class="btn btn-primary button-compare"
+                  (click)="showChartCanslim()"
+                >
+                  So sánh
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="title">1 Quý trước đó gần nhất (C)</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[5]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[5]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[5]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[5]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[1]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[1]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[1]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[1]?.value | number }}
+                </div>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td
+                [ngClass]="{
+                  'text-red':
+                    handleCanslim(
+                      [dataCanslim2?.doanh_so[5]?.value],
+                      [dataCanslim2?.doanh_so[1]?.value]
+                    ) < 0,
+                  'text-green':
+                    handleCanslim(
+                      [dataCanslim2?.doanh_so[5]?.value],
+                      [dataCanslim2?.doanh_so[1]?.value]
+                    ) >= thamChieuCanslim[1]
+                }"
+              >
+                {{
+                  handleCanslim(
+                    [dataCanslim2?.doanh_so[5]?.value],
+                    [dataCanslim2?.doanh_so[1]?.value]
+                  ) | number: ".0-2"
+                }}%
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  [(ngModel)]="thamChieuCanslim[1]"
+                  max="100"
+                  min="0"
+                />%
+              </td>
+              <td>
+                <input
+                  [class.text-red]="tongTiTrongCanslim() !== 100"
+                  type="number"
+                  name=""
+                  id=""
+                  [(ngModel)]="tiTrongCanslim[1]"
+                />%
+              </td>
+              <td
+                [style.color]="
+                  getColor(
+                    caculateCanslim(
+                      handleCanslim(
+                        [dataCanslim2?.doanh_so[5]?.value],
+                        [dataCanslim2?.doanh_so[1]?.value]
+                      ),
+                      thamChieuCanslim[1],
+                      tiTrongCanslim[1]
+                    ) / tiTrongCanslim[1]
+                  )
+                "
+              >
+                {{
+                  caculateCanslim(
+                    handleCanslim(
+                      [dataCanslim2?.doanh_so[5]?.value],
+                      [dataCanslim2?.doanh_so[1]?.value]
+                    ),
+                    thamChieuCanslim[1],
+                    tiTrongCanslim[1]
+                  ) | number: ".0-2"
+                }}
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="title">Trailing 12 tháng gần nhất (A)</td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[7]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[7]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[7]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[7]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[6]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[6]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[6]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[6]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[5]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[5]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[5]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[5]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[4]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[4]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[4]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[4]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[3]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[3]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[3]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[3]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[2]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[2]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[2]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[2]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[1]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[1]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[1]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[1]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[0]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[0]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[0]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[0]?.value | number }}
+                </div>
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red':
+                    handleCanslim(
+                      [
+                        dataCanslim2?.doanh_so[4]?.value,
+                        dataCanslim2?.doanh_so[5]?.value,
+                        dataCanslim2?.doanh_so[6]?.value,
+                        dataCanslim2?.doanh_so[7]?.value
+                      ],
+                      [
+                        dataCanslim2?.doanh_so[0]?.value,
+                        dataCanslim2?.doanh_so[1]?.value,
+                        dataCanslim2?.doanh_so[2]?.value,
+                        dataCanslim2?.doanh_so[3]?.value
+                      ]
+                    ) < 0,
+                  'text-green':
+                    handleCanslim(
+                      [
+                        dataCanslim2?.doanh_so[4]?.value,
+                        dataCanslim2?.doanh_so[5]?.value,
+                        dataCanslim2?.doanh_so[6]?.value,
+                        dataCanslim2?.doanh_so[7]?.value
+                      ],
+                      [
+                        dataCanslim2?.doanh_so[0]?.value,
+                        dataCanslim2?.doanh_so[1]?.value,
+                        dataCanslim2?.doanh_so[2]?.value,
+                        dataCanslim2?.doanh_so[3]?.value
+                      ]
+                    ) >= thamChieuCanslim[2]
+                }"
+              >
+                {{
+                  handleCanslim(
+                    [
+                      dataCanslim2?.doanh_so[4]?.value,
+                      dataCanslim2?.doanh_so[5]?.value,
+                      dataCanslim2?.doanh_so[6]?.value,
+                      dataCanslim2?.doanh_so[7]?.value
+                    ],
+                    [
+                      dataCanslim2?.doanh_so[0]?.value,
+                      dataCanslim2?.doanh_so[1]?.value,
+                      dataCanslim2?.doanh_so[2]?.value,
+                      dataCanslim2?.doanh_so[3]?.value
+                    ]
+                  ) | number: ".0-2"
+                }}%
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  [(ngModel)]="thamChieuCanslim[2]"
+                  max="100"
+                  min="0"
+                />%
+              </td>
+              <td>
+                <input
+                  [class.text-red]="tongTiTrongCanslim() !== 100"
+                  type="number"
+                  name=""
+                  id=""
+                  [(ngModel)]="tiTrongCanslim[2]"
+                />%
+              </td>
+              <td></td>
+              <td
+                [style.color]="
+                  getColor(
+                    caculateCanslim(
+                      handleCanslim(
+                        [
+                          dataCanslim2?.doanh_so[4]?.value,
+                          dataCanslim2?.doanh_so[5]?.value,
+                          dataCanslim2?.doanh_so[6]?.value,
+                          dataCanslim2?.doanh_so[7]?.value
+                        ],
+                        [
+                          dataCanslim2?.doanh_so[0]?.value,
+                          dataCanslim2?.doanh_so[1]?.value,
+                          dataCanslim2?.doanh_so[2]?.value,
+                          dataCanslim2?.doanh_so[3]?.value
+                        ]
+                      ),
+                      thamChieuCanslim[2],
+                      tiTrongCanslim[2]
+                    ) / tiTrongCanslim[2]
+                  )
+                "
+              >
+                {{
+                  caculateCanslim(
+                    handleCanslim(
+                      [
+                        dataCanslim2?.doanh_so[4]?.value,
+                        dataCanslim2?.doanh_so[5]?.value,
+                        dataCanslim2?.doanh_so[6]?.value,
+                        dataCanslim2?.doanh_so[7]?.value
+                      ],
+                      [
+                        dataCanslim2?.doanh_so[0]?.value,
+                        dataCanslim2?.doanh_so[1]?.value,
+                        dataCanslim2?.doanh_so[2]?.value,
+                        dataCanslim2?.doanh_so[3]?.value
+                      ]
+                    ),
+                    thamChieuCanslim[2],
+                    tiTrongCanslim[2]
+                  ) | number: ".0-2"
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td class="title">Trailing 12 tháng gần nhất trước đó (A)</td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[8]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[8]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[8]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[8]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[7]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[7]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[7]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[7]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[6]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[6]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[6]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[6]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[5]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[5]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[5]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[5]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[4]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[4]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[4]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[4]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[3]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[3]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[3]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[3]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[2]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[2]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[2]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[2]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.doanh_so[1]?.quarter }}
+                  {{ dataCanslim2?.doanh_so[1]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.doanh_so[1]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.doanh_so[1]?.value | number }}
+                </div>
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red':
+                    handleCanslim(
+                      [
+                        dataCanslim2?.doanh_so[5]?.value,
+                        dataCanslim2?.doanh_so[6]?.value,
+                        dataCanslim2?.doanh_so[7]?.value,
+                        dataCanslim2?.doanh_so[8]?.value
+                      ],
+                      [
+                        dataCanslim2?.doanh_so[1]?.value,
+                        dataCanslim2?.doanh_so[2]?.value,
+                        dataCanslim2?.doanh_so[3]?.value,
+                        dataCanslim2?.doanh_so[4]?.value
+                      ]
+                    ) < 0,
+                  'text-green':
+                    handleCanslim(
+                      [
+                        dataCanslim2?.doanh_so[5]?.value,
+                        dataCanslim2?.doanh_so[6]?.value,
+                        dataCanslim2?.doanh_so[7]?.value,
+                        dataCanslim2?.doanh_so[8]?.value
+                      ],
+                      [
+                        dataCanslim2?.doanh_so[1]?.value,
+                        dataCanslim2?.doanh_so[2]?.value,
+                        dataCanslim2?.doanh_so[3]?.value,
+                        dataCanslim2?.doanh_so[4]?.value
+                      ]
+                    ) >= thamChieuCanslim[3]
+                }"
+              >
+                {{
+                  handleCanslim(
+                    [
+                      dataCanslim2?.doanh_so[5]?.value,
+                      dataCanslim2?.doanh_so[6]?.value,
+                      dataCanslim2?.doanh_so[7]?.value,
+                      dataCanslim2?.doanh_so[8]?.value
+                    ],
+                    [
+                      dataCanslim2?.doanh_so[1]?.value,
+                      dataCanslim2?.doanh_so[2]?.value,
+                      dataCanslim2?.doanh_so[3]?.value,
+                      dataCanslim2?.doanh_so[4]?.value
+                    ]
+                  ) | number: ".0-2"
+                }}%
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  [(ngModel)]="thamChieuCanslim[3]"
+                  max="100"
+                  min="0"
+                />%
+              </td>
+              <td>
+                <input
+                  [class.text-red]="tongTiTrongCanslim() !== 100"
+                  type="number"
+                  name=""
+                  id=""
+                  [(ngModel)]="tiTrongCanslim[3]"
+                />%
+              </td>
+              <td></td>
+              <td
+                [style.color]="
+                  getColor(
+                    caculateCanslim(
+                      handleCanslim(
+                        [
+                          dataCanslim2?.doanh_so[5]?.value,
+                          dataCanslim2?.doanh_so[6]?.value,
+                          dataCanslim2?.doanh_so[7]?.value,
+                          dataCanslim2?.doanh_so[8]?.value
+                        ],
+                        [
+                          dataCanslim2?.doanh_so[1]?.value,
+                          dataCanslim2?.doanh_so[2]?.value,
+                          dataCanslim2?.doanh_so[3]?.value,
+                          dataCanslim2?.doanh_so[4]?.value
+                        ]
+                      ),
+                      thamChieuCanslim[3],
+                      tiTrongCanslim[3]
+                    ) / tiTrongCanslim[3]
+                  )
+                "
+              >
+                {{
+                  caculateCanslim(
+                    handleCanslim(
+                      [
+                        dataCanslim2?.doanh_so[5]?.value,
+                        dataCanslim2?.doanh_so[6]?.value,
+                        dataCanslim2?.doanh_so[7]?.value,
+                        dataCanslim2?.doanh_so[8]?.value
+                      ],
+                      [
+                        dataCanslim2?.doanh_so[1]?.value,
+                        dataCanslim2?.doanh_so[2]?.value,
+                        dataCanslim2?.doanh_so[3]?.value,
+                        dataCanslim2?.doanh_so[4]?.value
+                      ]
+                    ),
+                    thamChieuCanslim[3],
+                    tiTrongCanslim[3]
+                  ) | number: ".0-2"
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td
+                rowspan="4"
+                class="col-eps center-table"
+                [style.width.px]="70"
+              >
+                Tiêu chí EPS
+              </td>
+              <td class="title">1 Quý gần nhất (C)</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[4]?.quarter }}
+                  {{ dataCanslim2?.eps[4]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[4]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[4]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[0]?.quarter }}
+                  {{ dataCanslim2?.eps[0]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[0]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[0]?.value | number }}
+                </div>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td
+                [ngClass]="{
+                  'text-red':
+                    handleCanslim(
+                      [dataCanslim2?.eps[4]?.value],
+                      [dataCanslim2?.eps[0]?.value]
+                    ) < 0,
+                  'text-green':
+                    handleCanslim(
+                      [dataCanslim2?.eps[4]?.value],
+                      [dataCanslim2?.eps[0]?.value]
+                    ) >= thamChieuCanslim[4]
+                }"
+              >
+                {{
+                  handleCanslim(
+                    [dataCanslim2?.eps[4]?.value],
+                    [dataCanslim2?.eps[0]?.value]
+                  ) | number: ".0-2"
+                }}%
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  [(ngModel)]="thamChieuCanslim[4]"
+                  max="100"
+                  min="0"
+                />%
+              </td>
+              <td>
+                <input
+                  [class.text-red]="tongTiTrongCanslim() !== 100"
+                  type="number"
+                  name=""
+                  id=""
+                  [(ngModel)]="tiTrongCanslim[4]"
+                />%
+              </td>
+              <td
+                [style.color]="
+                  getColor(
+                    caculateCanslim(
+                      handleCanslim(
+                        [dataCanslim2?.eps[4]?.value],
+                        [dataCanslim2?.eps[0]?.value]
+                      ),
+                      thamChieuCanslim[4],
+                      tiTrongCanslim[4]
+                    ) / tiTrongCanslim[4]
+                  )
+                "
+              >
+                {{
+                  caculateCanslim(
+                    handleCanslim(
+                      [dataCanslim2?.eps[4]?.value],
+                      [dataCanslim2?.eps[0]?.value]
+                    ),
+                    thamChieuCanslim[4],
+                    tiTrongCanslim[4]
+                  ) | number: ".0-2"
+                }}
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="title">1 Quý trước đó gần nhất (C)</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[5]?.quarter }}
+                  {{ dataCanslim2?.eps[5]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[5]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[5]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[1]?.quarter }}
+                  {{ dataCanslim2?.eps[1]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[1]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[1]?.value | number }}
+                </div>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td
+                [ngClass]="{
+                  'text-red':
+                    handleCanslim(
+                      [dataCanslim2?.eps[5]?.value],
+                      [dataCanslim2?.eps[1]?.value]
+                    ) < 0,
+                  'text-green':
+                    handleCanslim(
+                      [dataCanslim2?.eps[5]?.value],
+                      [dataCanslim2?.eps[1]?.value]
+                    ) >= thamChieuCanslim[5]
+                }"
+              >
+                {{
+                  handleCanslim(
+                    [dataCanslim2?.eps[5]?.value],
+                    [dataCanslim2?.eps[1]?.value]
+                  ) | number: ".0-2"
+                }}%
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  [(ngModel)]="thamChieuCanslim[5]"
+                  max="100"
+                  min="0"
+                />%
+              </td>
+              <td>
+                <input
+                  [class.text-red]="tongTiTrongCanslim() !== 100"
+                  type="number"
+                  name=""
+                  id=""
+                  [(ngModel)]="tiTrongCanslim[5]"
+                />%
+              </td>
+              <td
+                [style.color]="
+                  getColor(
+                    caculateCanslim(
+                      handleCanslim(
+                        [dataCanslim2?.eps[5]?.value],
+                        [dataCanslim2?.eps[1]?.value]
+                      ),
+                      thamChieuCanslim[5],
+                      tiTrongCanslim[5]
+                    ) / tiTrongCanslim[5]
+                  )
+                "
+              >
+                {{
+                  caculateCanslim(
+                    handleCanslim(
+                      [dataCanslim2?.eps[5]?.value],
+                      [dataCanslim2?.eps[1]?.value]
+                    ),
+                    thamChieuCanslim[5],
+                    tiTrongCanslim[5]
+                  ) | number: ".0-2"
+                }}
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="title">Trailing 12 tháng gần nhất (A)</td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[7]?.quarter }}
+                  {{ dataCanslim2?.eps[7]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[7]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[7]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[6]?.quarter }}
+                  {{ dataCanslim2?.eps[6]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[6]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[6]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[5]?.quarter }}
+                  {{ dataCanslim2?.eps[5]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[5]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[5]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[4]?.quarter }}
+                  {{ dataCanslim2?.eps[4]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[4]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[4]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[3]?.quarter }}
+                  {{ dataCanslim2?.eps[3]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[3]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[3]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[2]?.quarter }}
+                  {{ dataCanslim2?.eps[2]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[2]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[2]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[1]?.quarter }}
+                  {{ dataCanslim2?.eps[1]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[1]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[1]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[0]?.quarter }}
+                  {{ dataCanslim2?.eps[0]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[0]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[0]?.value | number }}
+                </div>
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red':
+                    handleCanslim(
+                      [
+                        dataCanslim2?.eps[4]?.value,
+                        dataCanslim2?.eps[5]?.value,
+                        dataCanslim2?.eps[6]?.value,
+                        dataCanslim2?.eps[7]?.value
+                      ],
+                      [
+                        dataCanslim2?.eps[0]?.value,
+                        dataCanslim2?.eps[1]?.value,
+                        dataCanslim2?.eps[2]?.value,
+                        dataCanslim2?.eps[3]?.value
+                      ]
+                    ) < 0,
+                  'text-green':
+                    handleCanslim(
+                      [
+                        dataCanslim2?.eps[4]?.value,
+                        dataCanslim2?.eps[5]?.value,
+                        dataCanslim2?.eps[6]?.value,
+                        dataCanslim2?.eps[7]?.value
+                      ],
+                      [
+                        dataCanslim2?.eps[0]?.value,
+                        dataCanslim2?.eps[1]?.value,
+                        dataCanslim2?.eps[2]?.value,
+                        dataCanslim2?.eps[3]?.value
+                      ]
+                    ) >= thamChieuCanslim[6]
+                }"
+              >
+                {{
+                  handleCanslim(
+                    [
+                      dataCanslim2?.eps[4]?.value,
+                      dataCanslim2?.eps[5]?.value,
+                      dataCanslim2?.eps[6]?.value,
+                      dataCanslim2?.eps[7]?.value
+                    ],
+                    [
+                      dataCanslim2?.eps[0]?.value,
+                      dataCanslim2?.eps[1]?.value,
+                      dataCanslim2?.eps[2]?.value,
+                      dataCanslim2?.eps[3]?.value
+                    ]
+                  ) | number: ".0-2"
+                }}%
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  [(ngModel)]="thamChieuCanslim[6]"
+                  max="100"
+                  min="0"
+                />%
+              </td>
+              <td>
+                <input
+                  [class.text-red]="tongTiTrongCanslim() !== 100"
+                  type="number"
+                  name=""
+                  id=""
+                  [(ngModel)]="tiTrongCanslim[6]"
+                />%
+              </td>
+              <td></td>
+              <td
+                [style.color]="
+                  getColor(
+                    caculateCanslim(
+                      handleCanslim(
+                        [
+                          dataCanslim2?.eps[4]?.value,
+                          dataCanslim2?.eps[5]?.value,
+                          dataCanslim2?.eps[6]?.value,
+                          dataCanslim2?.eps[7]?.value
+                        ],
+                        [
+                          dataCanslim2?.eps[0]?.value,
+                          dataCanslim2?.eps[1]?.value,
+                          dataCanslim2?.eps[2]?.value,
+                          dataCanslim2?.eps[3]?.value
+                        ]
+                      ),
+                      thamChieuCanslim[6],
+                      tiTrongCanslim[6]
+                    ) / tiTrongCanslim[6]
+                  )
+                "
+              >
+                {{
+                  caculateCanslim(
+                    handleCanslim(
+                      [
+                        dataCanslim2?.eps[4]?.value,
+                        dataCanslim2?.eps[5]?.value,
+                        dataCanslim2?.eps[6]?.value,
+                        dataCanslim2?.eps[7]?.value
+                      ],
+                      [
+                        dataCanslim2?.eps[0]?.value,
+                        dataCanslim2?.eps[1]?.value,
+                        dataCanslim2?.eps[2]?.value,
+                        dataCanslim2?.eps[3]?.value
+                      ]
+                    ),
+                    thamChieuCanslim[6],
+                    tiTrongCanslim[6]
+                  ) | number: ".0-2"
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td class="title">Trailing 12 tháng gần nhất trước đó (A)</td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[8]?.quarter }}
+                  {{ dataCanslim2?.eps[8]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[8]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[8]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[7]?.quarter }}
+                  {{ dataCanslim2?.eps[7]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[7]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[7]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[6]?.quarter }}
+                  {{ dataCanslim2?.eps[6]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[6]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[6]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[5]?.quarter }}
+                  {{ dataCanslim2?.eps[5]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[5]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[5]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[4]?.quarter }}
+                  {{ dataCanslim2?.eps[4]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[4]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[4]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[3]?.quarter }}
+                  {{ dataCanslim2?.eps[3]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[3]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[3]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[2]?.quarter }}
+                  {{ dataCanslim2?.eps[2]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[2]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[2]?.value | number }}
+                </div>
+              </td>
+              <td>
+                <div class="quarter-label">
+                  Q{{ dataCanslim2?.eps[1]?.quarter }}
+                  {{ dataCanslim2?.eps[1]?.year }}
+                </div>
+                <div
+                  [ngClass]="{
+                    'text-red': dataCanslim2?.eps[1]?.value < 0
+                  }"
+                >
+                  {{ dataCanslim2?.eps[1]?.value | number }}
+                </div>
+              </td>
+              <td
+                [ngClass]="{
+                  'text-red':
+                    handleCanslim(
+                      [
+                        dataCanslim2?.eps[5]?.value,
+                        dataCanslim2?.eps[6]?.value,
+                        dataCanslim2?.eps[7]?.value,
+                        dataCanslim2?.eps[8]?.value
+                      ],
+                      [
+                        dataCanslim2?.eps[1]?.value,
+                        dataCanslim2?.eps[2]?.value,
+                        dataCanslim2?.eps[3]?.value,
+                        dataCanslim2?.eps[4]?.value
+                      ]
+                    ) < 0,
+                  'text-green':
+                    handleCanslim(
+                      [
+                        dataCanslim2?.eps[5]?.value,
+                        dataCanslim2?.eps[6]?.value,
+                        dataCanslim2?.eps[7]?.value,
+                        dataCanslim2?.eps[8]?.value
+                      ],
+                      [
+                        dataCanslim2?.eps[1]?.value,
+                        dataCanslim2?.eps[2]?.value,
+                        dataCanslim2?.eps[3]?.value,
+                        dataCanslim2?.eps[4]?.value
+                      ]
+                    ) >= thamChieuCanslim[7]
+                }"
+              >
+                {{
+                  handleCanslim(
+                    [
+                      dataCanslim2?.eps[5]?.value,
+                      dataCanslim2?.eps[6]?.value,
+                      dataCanslim2?.eps[7]?.value,
+                      dataCanslim2?.eps[8]?.value
+                    ],
+                    [
+                      dataCanslim2?.eps[1]?.value,
+                      dataCanslim2?.eps[2]?.value,
+                      dataCanslim2?.eps[3]?.value,
+                      dataCanslim2?.eps[4]?.value
+                    ]
+                  ) | number: ".0-2"
+                }}%
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  [(ngModel)]="thamChieuCanslim[7]"
+                  max="100"
+                  min="0"
+                />%
+              </td>
+              <td>
+                <input
+                  [class.text-red]="tongTiTrongCanslim() !== 100"
+                  type="number"
+                  name=""
+                  id=""
+                  [(ngModel)]="tiTrongCanslim[7]"
+                />%
+              </td>
+              <td></td>
+              <td
+                [style.color]="
+                  getColor(
+                    caculateCanslim(
+                      handleCanslim(
+                        [
+                          dataCanslim2?.eps[5]?.value,
+                          dataCanslim2?.eps[6]?.value,
+                          dataCanslim2?.eps[7]?.value,
+                          dataCanslim2?.eps[8]?.value
+                        ],
+                        [
+                          dataCanslim2?.eps[1]?.value,
+                          dataCanslim2?.eps[2]?.value,
+                          dataCanslim2?.eps[3]?.value,
+                          dataCanslim2?.eps[4]?.value
+                        ]
+                      ),
+                      thamChieuCanslim[7],
+                      tiTrongCanslim[7]
+                    ) / tiTrongCanslim[7]
+                  )
+                "
+              >
+                {{
+                  caculateCanslim(
+                    handleCanslim(
+                      [
+                        dataCanslim2?.eps[5]?.value,
+                        dataCanslim2?.eps[6]?.value,
+                        dataCanslim2?.eps[7]?.value,
+                        dataCanslim2?.eps[8]?.value
+                      ],
+                      [
+                        dataCanslim2?.eps[1]?.value,
+                        dataCanslim2?.eps[2]?.value,
+                        dataCanslim2?.eps[3]?.value,
+                        dataCanslim2?.eps[4]?.value
+                      ]
+                    ),
+                    thamChieuCanslim[7],
+                    tiTrongCanslim[7]
+                  ) | number: ".0-2"
+                }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <h4 class="pl-3 text-1 mb-3">Lọc cổ phiếu theo khoảng điểm</h4>
+      <div class="d-flex justify-content-between mb-4">
+        <div class="col d-flex align-items-center">
+          <div class="filter input-filter">
+            <span class="pr-3">Khoảng điểm từ: </span>
+            <input type="number" name="" id="" [(ngModel)]="minRange" />
+            <span class="pr-3">đến: </span>
+            <input type="number" name="" id="" [(ngModel)]="maxRange" />
+            <button class="btn btn-primary" (click)="filterCanslim()">
+              Lọc
+            </button>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="row d-flex align-items-center">
+            <label class="col-4 col-form-label text-2 text-right" for="select2"
+              >Sắp xếp theo:
+            </label>
+            <div class="col">
+              <select
+                id="select2"
+                name="select2"
+                class="form-control"
+                (change)="sortCanslimFilter($event.target.value)"
+              >
+                <option value="0"></option>
+                <option value="1">Tên: A-Z</option>
+                <option value="2">Tên: Z-A</option>
+                <option value="3">Điểm: Thấp - Cao</option>
+                <option value="4">Điểm: Cao - Thấp</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      filterResultCanslim
+      <div class="filter-result" *ngIf="filterResultCanslim">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Mã chứng khoán</th>
+              <th>Tên công ty / doanh nghiệp</th>
+              <th>Sàn niêm yết</th>
+              <th>Điểm số</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let item of filterResultCanslim"
+              (click)="onClickStock(item)"
+              class="pointer"
+            >
+              <td [style.width.%]="10" class="text-center">
+                {{ item.data.code }}
+              </td>
+              <td class="text-left px-3">{{ item.data.company }}</td>
+              <td class="text-left px-3">{{ item.data.stock_exchange }}</td>
+              <td
+                [style.width.%]="20"
+                class="text-center scores-col"
+                [style.background]="getColor(item.scores / 100)"
+              >
+                {{ item.scores | number: ".0-2" }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center bg1" *ngIf="!filterResultCanslim && loadFilter">
+        <app-loading [color]="'#614871'"></app-loading>
+      </div>
+    </div>
+  </tab>
+  <tab
+    heading="Cập nhật chỉ số"
+    *ngIf="company"
+    (selectTab)="showSelectYear = false"
+  >
+    <div class="card border-0">
+      <div class="card-body update">
+        <h4 class="mb-3 text-1">Cập nhật dữ liệu cổ phiếu theo năm / quý</h4>
+        <div class="update">
+          <input
+            class="input-year-update"
+            type="text"
+            name=""
+            id=""
+            placeholder="Nhập năm cần cập nhật"
+            [(ngModel)]="updateYear"
+          />
+        </div>
+        <div class="d-flex flex-row align-items-center mt-2">
+          <div class="pr-2">
+            <div class="quy-label">Q1</div>
+            <label class="switch switch-label switch-outline-primary-alt">
+              <input
+                type="checkbox"
+                class="switch-input"
+                [(ngModel)]="listQuarter[0].value"
+              />
+              <span
+                class="switch-slider"
+                data-checked="&#x2713;"
+                data-unchecked="&#x2715;"
+              ></span>
+            </label>
+          </div>
+          <div class="px-2">
+            <div class="quy-label">Q2</div>
+            <label class="switch switch-label switch-outline-success-alt">
+              <input
+                type="checkbox"
+                class="switch-input"
+                [(ngModel)]="listQuarter[1].value"
+              />
+              <span
+                class="switch-slider"
+                data-checked="&#x2713;"
+                data-unchecked="&#x2715;"
+              ></span>
+            </label>
+          </div>
+          <div class="px-2">
+            <div class="quy-label">Q3</div>
+            <label class="switch switch-label switch-outline-warning-alt">
+              <input
+                type="checkbox"
+                class="switch-input"
+                [(ngModel)]="listQuarter[2].value"
+              />
+              <span
+                class="switch-slider"
+                data-checked="&#x2713;"
+                data-unchecked="&#x2715;"
+              ></span>
+            </label>
+          </div>
+          <div class="px-2">
+            <div class="quy-label">Q4</div>
+            <label class="switch switch-label switch-outline-danger-alt">
+              <input
+                type="checkbox"
+                class="switch-input"
+                [(ngModel)]="listQuarter[3].value"
+              />
+              <span
+                class="switch-slider"
+                data-checked="&#x2713;"
+                data-unchecked="&#x2715;"
+              ></span>
+            </label>
+          </div>
+          <div class="pl-2 update-button">
+            <button class="btn btn-primary" (click)="update()">Cập nhật</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </tab>
+</tabset>

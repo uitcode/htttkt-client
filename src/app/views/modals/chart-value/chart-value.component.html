@@ -1,0 +1,87 @@
+<div class="modal-header d-flex justify-content-between">
+  <div class="d-flex align-items-center">
+    <h4 class="modal-title pull-left">{{ title }}</h4>
+    <div class="d-flex align-items-center mx-3">
+      <div class="text-right input-y">
+        <input
+          type="number"
+          [(ngModel)]="startYear"
+          #yearInput
+          (ngModelChange)="changeYear()"
+        />
+      </div>
+      <i class="cil-arrow-right mx-2"></i>
+      <div class="text-right input-y">
+        <input
+          type="number"
+          [(ngModel)]="endYear"
+          #yearInput
+          (ngModelChange)="changeYear()"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="d-flex">
+    <div class="d-flex">
+      <div class="d-flex align-items-center mr-3">
+        <div
+          *ngFor="let stockCode of listCodeStockCompare; let index = index"
+          class="tag-stock px-2 py-1 mx-2"
+        >
+          {{ stockCode }}
+          <i
+            (click)="removeCode(stockCode, index)"
+            class="cil-x font-size-tiny pointer"
+          ></i>
+        </div>
+      </div>
+      <div class="position-relative area-input" (click)="clicked()">
+        <div class="d-flex align-items-center py-1 px-2 theme-border">
+          <i class="cil-search pr-2"></i>
+          <input
+            #searchInput
+            class="search-input"
+            type="text"
+            class="border-0 theme-input"
+            placeholder="Nhập mã chứng khoán"
+            [(ngModel)]="inputCode"
+            (ngModelChange)="onSearch()"
+          />
+        </div>
+        <div
+          #result
+          class="search-result position-absolute"
+          [ngClass]="inside && searchResult?.length > 0 ? 'd-block' : 'd-none'"
+        >
+          <ng-container *ngFor="let item of searchResult">
+            <div class="text-left search-result-item px-3 py-2">
+              <div (click)="chooseStock(item)">
+                <span class="mb-0 font-weight-bold">{{ item.code }}</span>
+                <span class="mb-0"> - {{ item.company }}</span>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <div
+          *ngIf="inputCode && inside && !searchResult?.length"
+          class="search-result position-absolute d-block"
+        >
+          <div class="text-left search-result-item px-3 py-2">
+            Không có kết quả...
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="bsModalRef.hide()"
+    >
+      <span aria-hidden="true"><i class="cil-x"></i></span>
+    </button>
+  </div>
+</div>
+<div class="modal-body">
+  <div #eleChart [style.height.px]="550"></div>
+</div>

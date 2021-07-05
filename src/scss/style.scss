@@ -1,0 +1,195 @@
+// If you want to override variables do it here
+@import "variables";
+
+// Import styles
+@import "~@coreui/coreui/scss/coreui";
+
+// If you want to add something do it here
+@import "custom";
+
+app-header.app-header.navbar {
+  background-color: #2d303d;
+}
+
+main.main {
+  background-color: #1d1f2a;
+}
+
+.navbar-brand,
+.navbar-toggler {
+  display: none !important;
+}
+
+.app-header {
+  border-bottom: 0;
+}
+
+.tab-content {
+  background: #232632;
+  border: 0;
+}
+
+a.nav-link.active {
+  background: #232632 !important;
+  border: 0;
+  margin-top: 1px;
+  color: #9197b1 !important;
+}
+
+.nav-tabs .nav-link {
+  color: #646775 !important;
+}
+
+input {
+  outline: none;
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+  // display: block;
+  // background-color: rgb(238, 238, 238);
+}
+
+::-webkit-scrollbar-thumb {
+  --tw-bg-opacity: 1;
+  background-color: rgba(45, 48, 61, 0.8);
+  --tw-shadow: 0 0 #1d1f2a;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 transparent),
+    var(--tw-ring-shadow, 0 0 transparent), var(--tw-shadow);
+  height: 56px;
+  border-radius: 6px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+.table-bordered {
+  border: 0 !important;
+}
+
+.table-bordered thead th {
+  border: 0;
+  background-color: #2d303d;
+  border: 1px solid #2d303d;
+  border-right-color: #232632;
+  color: #9197b1;
+}
+
+.table-bordered td {
+  border: 0;
+}
+
+.text-1 {
+  color: #9197b1;
+}
+
+.text-2 {
+  color: #73757b;
+}
+
+.text-red {
+  color: #ff5858 !important;
+}
+
+.text-green {
+  color: #3cdc96 !important;
+}
+
+tbody tr:nth-child(odd) {
+  background: #262935;
+}
+
+tbody tr:nth-child(even) {
+  background: #20232e;
+}
+
+tbody td {
+  color: #fff;
+  text-align: right;
+}
+
+thead th input {
+  background: #2d303d;
+  color: #fff;
+  font-weight: 600;
+}
+
+tbody tr:nth-child(odd) input {
+  background: #262935;
+  color: #fff;
+}
+
+tbody tr:nth-child(even) input {
+  background: #20232e;
+  color: #fff;
+}
+
+.input-filter .btn-primary {
+  color: #fff;
+  background-color: #614871;
+  border: 0;
+  width: 60px;
+  border-radius: 0 4px 4px 0;
+  height: 34px;
+  outline: none;
+  box-shadow: none;
+}
+
+.input-filter .btn-primary:not(:disabled):not(.disabled):active {
+  color: #fff;
+  background-color: #614871;
+  opacity: 0.8;
+  border: 0;
+}
+
+.update-button .btn-primary {
+  color: #fff;
+  background-color: #614871;
+  border: 0;
+  width: 98px;
+  border-radius: 4px;
+  height: 34px;
+  outline: none;
+  box-shadow: none;
+}
+.update-button .btn-primary:not(:disabled):not(.disabled):active {
+  color: #fff;
+  background-color: #614871;
+  opacity: 0.8;
+  border: 0;
+}
+
+select#select1,
+select#select2 {
+  color: #fff;
+  background: #1d1f2a;
+  border: 1px solid #2d303d;
+  border-radius: 4px;
+  height: 36px;
+  outline: none;
+  box-shadow: none;
+  padding-bottom: 10px;
+}
+
+.center-table {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle !important;
+}
+
+.switch-slider {
+  background-color: #1d1f2a !important;
+  border: 1px solid #2d303d !important;
+}
+
+.switch-slider::before {
+  top: 1px;
+}
+
+app-footer.app-footer {
+  background: #2d303d;
+  border: 0;
+}
+
+.pointer {
+  cursor: pointer;
+}
